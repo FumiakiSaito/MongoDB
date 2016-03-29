@@ -220,6 +220,16 @@ WriteResult({ "nMatched" : 3, "nUpserted" : 0, "nModified" : 2 })
 > db.users.find({name: "saito"});
 { "_id" : ObjectId("56e6151b73cd3c01e31f406e"), "name" : "saito", "score" : 105 }
 
+■配列のフィールドに値を追加する
+> db.users.find();
+{ "_id" : ObjectId("56fa0b685dd41f162a07ba0f"), "name" : "saito", "score" : 30, "loves" : [ "car" ] }
+> db.users.update({name: "saito"}, {$push: {loves: "bike"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.users.find();
+{ "_id" : ObjectId("56fa0b685dd41f162a07ba0f"), "name" : "saito", "score" : 30, "loves" : [ "car", "bike" ] }
+>
+
+
 ■フィールド名を更新する(score→pointにする)
 > db.users.update({name: "saito"}, {$rename: {score: "point"}});
 WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
